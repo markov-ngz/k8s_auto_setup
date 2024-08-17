@@ -1,0 +1,20 @@
+---
+- name: Install Kubernetes Dependencies
+  apt:
+    name:
+      - apt-transport-https
+      - docker.io
+      - ca-certificates
+      - curl
+      - gnupg
+    state: present
+
+- name: Add kubernetes to apt repository
+  shell: echo "deb [signed-by={{key_folder}}/{{k8s_key_file}}] {{k8s_package_url}} /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+- name: Add APT key for Kubernetes
+  shell: curl -fsSL {{ k8s_package_key_url }} | sudo gpg --dearmor -o {{key_folder}}/{{k8s_key_file}}
+
+- name: Update APT package index
+  apt:
+    update_cache: yes

@@ -1,0 +1,1 @@
+echo  public_ip = \"$(curl -s ifconfig.me)\" > public_ip.auto.tfvars

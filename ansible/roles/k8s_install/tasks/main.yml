@@ -1,0 +1,12 @@
+---
+- import_tasks : packages.yml
+
+
+- name: Install kubeadm, kubelet, and kubelet
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    force: yes

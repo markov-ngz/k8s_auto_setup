@@ -1,0 +1,32 @@
+- name: Init Kubeadm on master node to setup control plane
+  shell: sudo kubeadm init --control-plane-endpoint=$(curl ifconfig.me && echo "")  --apiserver-cert-extra-sans=$(curl ifconfig.me && echo "") --pod-network-cidr=192.168.0.0/16 --node-name $(hostname -s) --ignore-preflight-errors Swap
+
+- name: Create join token
+  shell: sudo kubeadm token create --print-join-command
+  register: join_token
+
+- name: Save join token
+  shell: " echo {{ join_token.stdout }} > join.sh"
+
+- name: Save to local
+  run_once: true
+  fetch: src=join.sh dest="{{playbook_dir}}/buffer/" flat=yes
+
+- name: Create .kube repo
+  file:
+    path: .kube
+    state: directory
+
+- name: Copy admin.conf to Home directory
+  copy:
+    src: "/etc/kubernetes/admin.conf"
+    dest: .kube/config
+    remote_src: true
+
+- hosts: worker
+  - name: Copy join token to worker
+    copy:
+      src: "{{playbook_dir}}/buffer/join.sh"
+      dest: "./"
+  - name: Execute join token
+    command: sh join.sh

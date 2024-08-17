@@ -1,0 +1,6 @@
+---
+- name: Configure Kubernetes Cluster 
+  hosts : controllers 
+  become : yes
+  roles : 
+    - apt_setup

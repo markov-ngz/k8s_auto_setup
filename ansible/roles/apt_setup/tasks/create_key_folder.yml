@@ -1,0 +1,8 @@
+- name: Check if folder already exists
+  ansible.builtin.stat:
+    path: "{{ key_folder }}"
+  register : dir_to_check
+- name: Create APT keyrings folder
+  shell: sudo mkdir {{ key_folder}}
+  when: dir_to_check.stat.isdir is not defined or not dir_to_check.stat.isdir 
+  

@@ -1,0 +1,9 @@
+dependencies : 
+  - apt-transport-https
+  - docker.io
+  - ca-certificates
+  - curl
+  - gnupg
+k8s_key_file : kubernetes-apt-keyring.gpg
+k8s_package_url : https://pkgs.k8s.io/core:/stable:/v1.28/deb/
+k8s_package_key_url : https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
