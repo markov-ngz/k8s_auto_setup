@@ -1,6 +1,8 @@
 1. Set necessary env variable for the file's paths
 ```
-source set_env.sh
+INVENTORY=<inventory_file_path>
+PLAYBOOK=<playbook_file_path>
+KEY=<ssh_key_path>
 ```
 2. List the inventory 
 ```

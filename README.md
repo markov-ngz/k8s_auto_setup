@@ -3,9 +3,9 @@
 ## Setup the cluster 
 0. Prerequisites
 The following configuration was used for this project : 
-- <b>terraform</b> : 
-- <b>ansible</b> : 
-- <b>aws_cli</b> : 
+- <b>terraform</b> : 1.9.4
+- <b>ansible</b> : ( core : 2.17.2 , python : 3.10.12 ) 
+- <b>aws-cli</b> : 2.17.27 
 1. Setup the following environment variables : 
 ```
 
