@@ -1,7 +1,7 @@
 ---
 - name: Update and upgrade apt packages
-  become: true
+  become : "yes"
   apt:
-    update_cache: yes
-    upgrade: yes
+    update_cache : true
+    upgrade: "yes"
     

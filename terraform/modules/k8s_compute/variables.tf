@@ -17,3 +17,14 @@ variable "public_ip" {
   type        = string
   sensitive   = true
 }
+
+variable "cidr_controllers" {
+  description = "cidr used by the controllers"
+  type = string
+  default = "10.0.2.0/24"
+}
+variable "cidr_workers" {
+  description = "cidr used by the workers"
+  type = string
+  default = "10.0.1.0/24"
+}

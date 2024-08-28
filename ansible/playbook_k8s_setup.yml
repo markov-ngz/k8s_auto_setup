@@ -1,6 +1,12 @@
 ---
 - name: Configure Kubernetes Cluster 
-  hosts : controllers 
-  become : yes
+  become: yes
+  hosts : 
+    - controllers
+    - workers 
   roles : 
     - apt_setup
+    - k8s_install
+  vars : 
+    controllers_group : controllers
+    workers_group : workers

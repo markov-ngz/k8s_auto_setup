@@ -18,3 +18,13 @@
 - name: Update APT package index
   apt:
     update_cache: yes
+
+- name: Install kubeadm, kubelet, and kubelet
+  become : yes
+  apt:
+    name:
+      - kubelet
+      - kubeadm
+      - kubectl
+    state: present
+    force: yes

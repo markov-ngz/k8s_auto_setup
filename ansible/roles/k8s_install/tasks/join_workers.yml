@@ -1,0 +1,24 @@
+- name: Create join token
+  shell: sudo kubeadm token create --print-join-command
+  register: join_token
+  when: controllers_group in group_names
+  
+- name: Save join token
+  shell: "echo {{ join_token.stdout }} > join.sh"
+  when: controllers_group in group_names
+
+- name: Save to local
+  run_once: true
+  fetch: src=join.sh dest="{{playbook_dir}}/join.sh" flat=yes
+  when: controllers_group in group_names
+
+- name: Copy join token to worker
+  copy:
+    src: "{{playbook_dir}}/join.sh"
+    dest: "./"
+  when: workers_group in group_names
+
+- name: Execute join token
+  become: true
+  command: sh join.sh
+  when: workers_group in group_names

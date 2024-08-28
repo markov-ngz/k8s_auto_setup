@@ -17,14 +17,17 @@ module "k8s_compute" {
   public_ip = var.public_ip
   ami_id    = var.ami_id
   key_name  = var.key_name
-  key_path  = var.key_path
-
+  key_path  = var.public_key_path
 }
 
 resource "local_file" "k8s_ips_yml" {
+
   content = yamlencode({
     controllers : {
       hosts : { for ip in module.k8s_compute.k8s_ips.controllers_ip : ip => "" }
+    }
+    workers : {
+      hosts : { for ip in module.k8s_compute.k8s_ips.workers_ip : ip => "" }
     }
     all : {
       vars : {

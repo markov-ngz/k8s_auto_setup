@@ -1,12 +1,9 @@
 ---
 - import_tasks : packages.yml
 
+- import_tasks : setup_controllers.yml
+  when : controllers_group in group_names
 
-- name: Install kubeadm, kubelet, and kubelet
-  apt:
-    name:
-      - kubelet
-      - kubeadm
-      - kubectl
-    state: present
-    force: yes
+- import_tasks : join_workers.yml
+
+

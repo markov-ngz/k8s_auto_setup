@@ -1,0 +1,15 @@
+- name: Init Kubeadm on master node to setup control plane
+  shell: kubeadm init --control-plane-endpoint=$(curl ifconfig.me && echo "") --apiserver-cert-extra-sans=$(curl ifconfig.me && echo "")  --pod-network-cidr=192.168.0.0/16 --node-name $(hostname -s)  --ignore-preflight-errors Swap
+
+- name: Create .kube repo
+  file:
+    path: .kube
+    state: directory
+
+- name: Copy admin.conf to Home directory
+  copy:
+    src: "/etc/kubernetes/admin.conf"
+    dest: .kube/config
+    remote_src: true
+    
+  
